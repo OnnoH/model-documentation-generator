@@ -7,11 +7,14 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.HelpCommand;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.ScopeType;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
+
+import static nl.onnoh.mdg.template.TemplateService.DEFAULT_STYLE_FILE;
 
 @Slf4j
 @Command(name = "generate", description = "Generate documentation for given BPMN or DMN file."
@@ -29,18 +32,25 @@ public class GenerateDocumentation implements Callable<Integer> {
 //    @Option(names = { "-h", "--help", "-?", "-help"}, usageHelp = true, description = "Display this help and exit")
 //    boolean help;
 
-    @Option(names = {"-of", "--output-format"}, defaultValue = "html", description = "The document format (default: ${DEFAULT-VALUE}).")
+    @Option(names = {"-of", "--output-format"}, defaultValue = "html", scope = ScopeType.INHERIT, description = "The document format (default: ${DEFAULT-VALUE}).")
     public String outputFormat;
 
-    @Option(names = {"-if", "--image-format"}, defaultValue = "svg", description = "The image format included in the documentation (default: ${DEFAULT-VALUE}).")
+    @Option(names = {"-if", "--image-format"}, defaultValue = "svg", scope = ScopeType.INHERIT, description = "The image format included in the documentation (default: ${DEFAULT-VALUE}).")
     public String imageFormat;
 
 
-    @Option(names = {"-s", "--suppress-empty-sections"}, defaultValue = "false", description = "Suppress empty sections (default: ${DEFAULT-VALUE}).")
+    @Option(names = {"-s", "--suppress-empty-sections"}, defaultValue = "false", scope = ScopeType.INHERIT, description = "Suppress empty sections (default: ${DEFAULT-VALUE}).")
     public boolean suppressEmptySections;
 
-    @Option(names = {"-o", "--open-sections"}, defaultValue = "false", description = "Open all sections (default: ${DEFAULT-VALUE}).")
+    @Option(names = {"-o", "--open-sections"}, defaultValue = "false", scope = ScopeType.INHERIT, description = "Open all sections (default: ${DEFAULT-VALUE}).")
     public boolean openSections;
+
+    @Option(names = {"-td", "--template-dir"}, scope = ScopeType.INHERIT, description = "Directory with your own FreeMarker templates, laid out like the bundled ones "
+            + "(e.g. <dir>/bpmn/templates/html/bpmn-documentation.ftl). Templates missing from the directory are taken from the bundled ones.")
+    public String templateDir;
+
+    @Option(names = {"-sf", "--style-file"}, scope = ScopeType.INHERIT, description = "Stylesheet the generated HTML links to (default: " + DEFAULT_STYLE_FILE + ").")
+    public String styleFile;
 
     @Override
     public Integer call() {

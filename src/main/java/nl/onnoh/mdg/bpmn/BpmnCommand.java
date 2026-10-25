@@ -68,21 +68,22 @@ public class BpmnCommand implements Callable {
         bpmnDocumentation.setSuppressEmptySections(parentCommand.suppressEmptySections);
         bpmnDocumentation.setOpenSections(parentCommand.openSections);
         bpmnDocumentation.setImageFormat(parentCommand.imageFormat);
+        bpmnDocumentation.setStyleFile(parentCommand.styleFile);
 
-        generateOutput(modelFile, bpmnDocumentation, parentCommand.outputFormat);
+        generateOutput(modelFile, bpmnDocumentation, parentCommand.outputFormat, parentCommand.templateDir);
         log.info("Generated BPMN documentation.");
         log.debug("Data object : {}", bpmnDocumentation);
 
         return 0;
     }
 
-    private static void generateOutput(String bpmnFile, BpmnDocumentation bpmnDocumentation, String outputType) {
+    private static void generateOutput(String bpmnFile, BpmnDocumentation bpmnDocumentation, String outputType, String templateDir) {
         String templateFile = "bpmn" + File.separator + TEMPLATES_FOLDER + File.separator + outputType + File.separator + "bpmn-documentation" +TEMPLATE_SUFFIX;
         String outputFileExtension = ".html";
         if ("markdown".equalsIgnoreCase(outputType)) outputFileExtension = ".md";
         String outputFile = bpmnFile.replace(".bpmn", outputFileExtension);
         Map<String, Object> templateVariables = new HashMap<>();
-        Configuration configuration = initTemplateEngine();
+        Configuration configuration = initTemplateEngine(templateDir);
         templateVariables.put("bpmn", bpmnDocumentation);
         processTemplate(configuration, templateFile, outputFile, templateVariables);
         log.info("Written output file: {}", outputFile);

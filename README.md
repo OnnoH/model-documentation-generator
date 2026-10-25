@@ -28,6 +28,7 @@ XML schema definitions for both BPMN and DMN are maintained by the Objects Manag
   - Open all sections by default in HTML (details/summary blocks)
 - Camunda/Zeebe extension awareness (e.g., execution platform metadata, IO mappings, headers, properties, versionTag)
 - Template-based rendering (easy to customize)
+- Bring your own FreeMarker templates and stylesheet without rebuilding (`--template-dir`, `--style-file`)
 
 ## Requirements
 - Java 21 (JDK) installed and available on your PATH
@@ -63,6 +64,13 @@ Generate documentation for given BPMN or DMN file.
                         The document format (default: html).
   -s, --suppress-empty-sections
                         Suppress empty sections (default: false).
+      -sf, --style-file=<styleFile>
+                        Stylesheet the generated HTML links to (default:
+                          ../templates/style/markdown.css).
+      -td, --template-dir=<templateDir>
+                        Directory with your own FreeMarker templates, laid out
+                          like the bundled ones. Templates missing from the
+                          directory are taken from the bundled ones.
   -V, --version         Print version information and exit.
 Commands:
   bpmn  Handling BPMN files
@@ -123,6 +131,26 @@ You can tailor the output by editing the FreeMarker templates:
 - Stylesheet used by HTML template: `src/main/resources/templates/style/markdown.css`
 
 When you rebuild and re-run, your changes will reflect in the generated docs.
+
+### Without rebuilding: `--template-dir` and `--style-file`
+
+`--template-dir` (`-td`) points at a directory laid out like the bundled resources, so
+`<dir>/bpmn/templates/html/bpmn-documentation.ftl` replaces the bundled BPMN HTML template. The
+directory is searched first; every template you do not provide — including the ones your own
+template `<#import>`s — is still taken from the jar, so you can override a single file.
+
+`--style-file` (`-sf`) sets the stylesheet the generated HTML links to. Without it the HTML links
+the bundled `../templates/style/markdown.css`.
+
+```
+mvn -q org.codehaus.mojo:exec-maven-plugin:3.5.0:java \
+  -Dexec.mainClass=nl.onnoh.mdg.GenerateDocumentation \
+  -Dexec.args="bpmn src/main/resources/bpmn/models/all_elements.bpmn \
+    --template-dir ./my-templates --style-file ./my-style.css"
+```
+
+Both options work the same for the `bpmn` and the `dmn` subcommand. If the directory does not
+exist, the bundled templates are used and a message is written to stderr.
 
 ## Tips
 - Export an SVG image from your BPMN modeler and save it beside the BPMN file (same base name). The generated docs will embed/reference it.

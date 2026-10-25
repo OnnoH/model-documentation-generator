@@ -24,6 +24,7 @@ public class BpmnDocumentation {
     String executionPlatformVersion;
     String diagramRelationId;
     String imageFormat;
+    String styleFile;
     Collaboration collaboration;
     List<Process> processes;
     List<Message> messages;

@@ -18,7 +18,7 @@
 <html lang="en">
 <head>
     <title>DMN ${dmn.fileName}</title>
-    <link rel="stylesheet" href="../templates/style/markdown.css" />
+    <link rel="stylesheet" href="${dmn.styleFile!"../templates/style/markdown.css"}" />
     <style>
         .markdown-body {
             box-sizing: border-box;
