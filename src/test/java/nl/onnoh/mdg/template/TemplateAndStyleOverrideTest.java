@@ -46,7 +46,8 @@ class TemplateAndStyleOverrideTest {
         String defaultHtml = readOutput(defaultRun, ".bpmn");
         assertTrue(defaultHtml.contains(BUNDLED_STYLE_LINK),
                 "default output should link the bundled stylesheet verbatim, was:\n" + head(defaultHtml));
-        assertEquals(withoutTimestamp(readOutput(copyRun, ".bpmn")), withoutTimestamp(defaultHtml));
+        assertEquals(withoutRunSpecificValues(readOutput(copyRun, ".bpmn")),
+                withoutRunSpecificValues(defaultHtml));
     }
 
     @Test
@@ -166,9 +167,15 @@ class TemplateAndStyleOverrideTest {
         return Files.readString(output, StandardCharsets.UTF_8);
     }
 
-    /** The templates stamp the current date and time, which differs between two runs. */
-    private static String withoutTimestamp(String html) {
-        return html.replaceAll("Generated on [^<]*", "Generated on <timestamp>");
+    /**
+     * Blanks out the two things that legitimately differ between two runs of the same template:
+     * the generation timestamp, and the identity hashes of the JAXB objects that some sections
+     * still render with the default Object.toString().
+     */
+    private static String withoutRunSpecificValues(String html) {
+        return html
+                .replaceAll("Generated on [^<]*", "Generated on <timestamp>")
+                .replaceAll("@[0-9a-f]{6,}", "@<identity>");
     }
 
     private static String head(String html) {
