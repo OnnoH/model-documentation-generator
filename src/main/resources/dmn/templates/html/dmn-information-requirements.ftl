@@ -8,10 +8,10 @@
                 ${informationRequirement.id}
                 <@util.showDocumentation informationRequirement.description />
                 <#if informationRequirement.requiredDecisionHref?has_content>
-                    Decision ${informationRequirement.requiredDecisionHref}
+                    <a href="${informationRequirement.requiredDecisionHref}">Decision</a>
                 </#if>
                 <#if informationRequirement.requiredInputHref?has_content>
-                    Input ${informationRequirement.requiredInputHref}
+                    <a href="${informationRequirement.requiredInputHref}">Input Data</a>
                 </#if>
                 <#if informationRequirement.requiredinformationHref?has_content>
                     Information ${informationRequirement.requiredInformationHref}

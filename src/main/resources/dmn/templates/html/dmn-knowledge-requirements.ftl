@@ -9,13 +9,13 @@
                 ${knowledgeRequirement.id}
                 <@util.showDocumentation knowledgeRequirement.description />
                 <#if knowledgeRequirement.requiredDecisionHref?has_content>
-                    Decision ${knowledgeRequirement.requiredDecisionHref}
+                    <a href="${knowledgeRequirement.requiredDecisionHref}">Decision</a>
                 </#if>
                 <#if knowledgeRequirement.requiredInputHref?has_content>
-                    Input ${knowledgeRequirement.requiredInputHref}
+                    <a href="${knowledgeRequirement.requiredInputHref}">Input Data</a>
                 </#if>
                 <#if knowledgeRequirement.requiredKnowledgeHref?has_content>
-                    Knowledge ${knowledgeRequirement.requiredKnowledgeHref}
+                    <a href="${knowledgeRequirement.requiredKnowledgeHref}">Business Knowledge Model</a>
                 </#if>
             </p>
         </#list>
