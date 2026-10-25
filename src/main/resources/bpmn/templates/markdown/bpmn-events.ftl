@@ -26,7 +26,7 @@
 <@util.emptyOrNull event.name "event" />
 </#compress>
 </#assign>
-* ${eventName?trim}
+* ${eventName?trim}<#if eventType == "boundaryEvent" && event.attachedTo?has_content> (attached to [${event.attachedTo}](#${event.attachedTo}))</#if>
                 </#list>
             </#if>
         </#list>

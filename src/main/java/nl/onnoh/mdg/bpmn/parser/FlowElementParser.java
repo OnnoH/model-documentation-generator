@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static nl.onnoh.mdg.bpmn.BpmnModelConstants.BPMN_ELEMENT_AD_HOC_SUB_PROCESS;
+import static nl.onnoh.mdg.bpmn.BpmnModelConstants.BPMN_ELEMENT_ANONYMOUS_TASK;
 import static nl.onnoh.mdg.bpmn.BpmnModelConstants.BPMN_ELEMENT_BOUNDARY_EVENT;
 import static nl.onnoh.mdg.bpmn.BpmnModelConstants.BPMN_ELEMENT_BUSINESS_RULE_TASK;
 import static nl.onnoh.mdg.bpmn.BpmnModelConstants.BPMN_ELEMENT_CALL_ACTIVITY;
@@ -75,7 +76,7 @@ public class FlowElementParser {
                 String flowType = flowElement.getName().getLocalPart();
                 switch (flowType) {
                     case BPMN_ELEMENT_TASK:
-                        parsedFlowElements.add(parseAnonymousTask(processId, flowType, flowElement.getValue()));
+                        parsedFlowElements.add(parseAnonymousTask(processId, BPMN_ELEMENT_ANONYMOUS_TASK, flowElement.getValue()));
                         break;
                     case BPMN_ELEMENT_START_EVENT:
                         parsedFlowElements.add(parseStartEvent(processId, flowType, flowElement.getValue()));

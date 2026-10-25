@@ -63,6 +63,13 @@
                                 <td><@util.emptyOrNull event.template.name "template" /></td>
                                 <td><@util.emptyOrNull event.template.version "template version" /></td>
                             </tr>
+                            <#if eventType == "boundaryEvent" && event.attachedTo?has_content>
+                            <tr>
+                                <td>Attached to</td>
+                                <td><a href="#${event.attachedTo}">${event.attachedTo}</a></td>
+                                <td>n/a</td>
+                            </tr>
+                            </#if>
                         </table>
                         <#if event.documentation?has_content>
                             <blockquote>${event.documentation}</blockquote>

@@ -9,13 +9,13 @@
                 ${authorityRequirement.id}
                 <@util.showDocumentation authorityRequirement.description />
                 <#if authorityRequirement.requiredDecisionHref?has_content>
-                    Decision ${authorityRequirement.requiredDecisionHref}
+                    <a href="${authorityRequirement.requiredDecisionHref}">Decision</a>
                 </#if>
                 <#if authorityRequirement.requiredInputHref?has_content>
-                    Input ${authorityRequirement.requiredInputHref}
+                    <a href="${authorityRequirement.requiredInputHref}">Input Data</a>
                 </#if>
                 <#if authorityRequirement.requiredAuthorityHref?has_content>
-                    Authority ${authorityRequirement.requiredAuthorityHref}
+                    <a href="${authorityRequirement.requiredAuthorityHref}">Knowledge Source</a>
                 </#if>
             </p>
         </#list>
