@@ -170,6 +170,8 @@ public final class BpmnModelConstants {
     public static final String BPMN_ELEMENT_SUPPORTS = "supports";
     public static final String BPMN_ELEMENT_PROCESS = "process";
     public static final String BPMN_ELEMENT_TASK = "task";
+    /** The flow type the templates list a plain bpmn:task under. */
+    public static final String BPMN_ELEMENT_ANONYMOUS_TASK = "anonymousTask";
     public static final String BPMN_ELEMENT_SEND_TASK = "sendTask";
     public static final String BPMN_ELEMENT_SERVICE_TASK = "serviceTask";
     public static final String BPMN_ELEMENT_SCRIPT_TASK = "scriptTask";

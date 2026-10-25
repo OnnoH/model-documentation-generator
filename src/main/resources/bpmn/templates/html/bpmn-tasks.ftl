@@ -47,7 +47,7 @@
                     <summary><h4>${title}</h4></summary>
                         <#list tasks as task>
                             <p>
-                                <h5><@util.emptyOrNull task.name "task" /></h5>
+                                <h5 id="${task.id}"><@util.emptyOrNull task.name "task" /></h5>
                                 <table>
                                     <tr>
                                         <th>Property</th>

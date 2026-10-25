@@ -27,7 +27,7 @@
                 <#list tasks as task>
 <#assign taskName>
 <#compress>
-<@util.emptyOrNull task.name?trim "task" />
+<@util.emptyOrNull task.name "task" />
 </#compress>
 </#assign>
 * [${taskName?trim}](#${task.id})
