@@ -59,20 +59,21 @@ public class DmnCommand implements Callable {
         dmnDocumentation.setSuppressEmptySections(parentCommand.suppressEmptySections);
         dmnDocumentation.setImageFormat(parentCommand.imageFormat);
         dmnDocumentation.setOpenSections(parentCommand.openSections);
+        dmnDocumentation.setStyleFile(parentCommand.styleFile);
 
-        generateOutput(modelFile, dmnDocumentation, parentCommand.outputFormat);
+        generateOutput(modelFile, dmnDocumentation, parentCommand.outputFormat, parentCommand.templateDir);
         log.info("Generated DMN documentation.");
         log.debug("Data object : {}", dmnDocumentation);
         return 0;
     }
 
-    private static void generateOutput(String dmnFile, DmnDocumentation dmnDocumentation, String outputType) {
+    private static void generateOutput(String dmnFile, DmnDocumentation dmnDocumentation, String outputType, String templateDir) {
         String templateFile = "dmn" + File.separator + TEMPLATES_FOLDER + File.separator + outputType + File.separator + "dmn-documentation" +TEMPLATE_SUFFIX;
         String outputFileExtension = ".html";
         if ("markdown".equalsIgnoreCase(outputType)) outputFileExtension = ".md";
         String outputFile = dmnFile.replace(".dmn", outputFileExtension);
         Map<String, Object> templateVariables = new HashMap<>();
-        Configuration configuration = initTemplateEngine();
+        Configuration configuration = initTemplateEngine(templateDir);
         templateVariables.put("dmn", dmnDocumentation);
         processTemplate(configuration, templateFile, outputFile, templateVariables);
         log.info("Written output file: {}", outputFile);

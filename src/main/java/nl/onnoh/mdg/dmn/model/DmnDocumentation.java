@@ -22,6 +22,7 @@ public class DmnDocumentation {
     String executionPlatform;
     String executionPlatformVersion;
     String imageFormat;
+    String styleFile;
     String description;
     List<Decision> decisions;
     List<BusinessKnowledgeModel> businessKnowledgeModels;
